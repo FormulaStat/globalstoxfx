@@ -23,8 +23,14 @@ body {
   line-height: 1.6;
 }
 
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* =========================
-   Navbar Section
+   Navbar
 ========================= */
 .navbar {
   position: fixed;
@@ -38,19 +44,12 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar.scrolled {
-  background: rgba(10, 15, 44, 0.95);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--primary);
-  letter-spacing: 1px;
 }
 
 .nav-links {
@@ -63,7 +62,6 @@ body {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
 }
 
 .nav-links li a:hover,
@@ -71,9 +69,9 @@ body {
   color: var(--primary);
 }
 
-.nav-links .btn {
-  padding: 8px 16px;
-  border-radius: 8px;
+.btn.small {
+  padding: 8px 14px;
+  border-radius: 6px;
   background: var(--primary);
   color: #fff !important;
   font-size: 0.9rem;
@@ -81,11 +79,11 @@ body {
   transition: background 0.3s ease;
 }
 
-.nav-links .btn:hover {
+.btn.small:hover {
   background: var(--secondary);
 }
 
-/* Mobile Menu */
+/* Mobile menu */
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
@@ -100,7 +98,7 @@ body {
     right: 0;
     background: rgba(10, 15, 44, 0.95);
     flex-direction: column;
-    width: 240px;
+    width: 220px;
     padding: 20px;
     gap: 18px;
     transform: translateX(100%);
@@ -117,180 +115,53 @@ body {
 }
 
 /* =========================
-   Floating WhatsApp Chat
-========================= */
-#whatsapp-chat {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999;
-  font-family: inherit;
-}
-
-#whatsapp-chat .chat-toggle {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #25d366;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease;
-}
-
-#whatsapp-chat .chat-toggle:hover {
-  transform: scale(1.05);
-}
-
-#whatsapp-chat .chat-toggle img {
-  width: 28px;
-  height: 28px;
-}
-
-#whatsapp-chat .chat-box {
-  width: 300px;
-  max-width: 90vw;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  overflow: hidden;
-  display: none;
-  flex-direction: column;
-}
-
-#whatsapp-chat .chat-box[aria-hidden="false"] {
-  display: flex;
-  animation: fadeInUp 0.3s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Chat header, body, footer */
-#whatsapp-chat .chat-header,
-#whatsapp-chat .chat-body,
-#whatsapp-chat .chat-footer {
-  padding: 12px 16px;
-}
-
-#whatsapp-chat .chat-header {
-  background: #25d366;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#whatsapp-chat .chat-header h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-#whatsapp-chat .chat-header p {
-  margin: 2px 0 0;
-  font-size: 0.8rem;
-  opacity: 0.9;
-}
-
-#whatsapp-chat .chat-header button {
-  background: transparent;
-  border: none;
-  font-size: 1.4rem;
-  color: #fff;
-  cursor: pointer;
-}
-
-#whatsapp-chat .chat-body {
-  font-size: 0.9rem;
-  color: #333;
-  line-height: 1.4;
-}
-
-#whatsapp-chat .chat-footer {
-  border-top: 1px solid #eee;
-  text-align: right;
-}
-
-#whatsapp-chat .chat-btn {
-  display: inline-block;
-  padding: 8px 14px;
-  background: #25d366;
-  color: #fff;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-#whatsapp-chat .chat-btn:hover {
-  background: #1ebe5a;
-}
-
-/* =========================
    Hero Section
 ========================= */
 .hero {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   color: #fff;
+  overflow: hidden;
 }
 
 .hero-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: -2;
 }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 900px;
-  text-align: center;
-  padding: 0 20px;
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(10, 15, 44, 0.65);
+  z-index: -1;
 }
 
 .hero-content h1 {
   font-size: 2.8rem;
-  line-height: 1.2;
-  font-weight: 700;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .hero-content p {
   font-size: 1.1rem;
-  line-height: 1.6;
   margin-bottom: 28px;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .hero-actions {
   display: flex;
   justify-content: center;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -318,35 +189,251 @@ body {
 
 .btn-outline:hover {
   background: #fff;
-  color: #0a0f2c;
+  color: var(--dark);
 }
 
 /* =========================
-   What We Do Cards Fix
+   About Section
 ========================= */
-.what-card .long-text {
+.section.dark {
+  background: #0a1a3c;
+  color: #fff;
+  padding: 100px 20px;
+}
+
+.section.dark h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+}
+
+.about-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.about-left, .about-right {
+  flex: 1;
+  min-width: 320px;
+}
+
+.about-divider {
+  width: 2px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.values-list {
+  list-style: none;
+}
+
+.values-list li {
+  margin-bottom: 12px;
+  padding-left: 18px;
+  position: relative;
+}
+
+.values-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #4ade80;
+}
+
+.about-tagline {
+  margin-top: 30px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* =========================
+   Stats
+========================= */
+.stats {
+  background: #f1f5f9;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* =========================
+   Crypto Ticker
+========================= */
+.crypto-ticker {
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.ticker-wrapper {
+  display: inline-block;
+  animation: ticker 30s linear infinite;
+}
+
+#ticker-list {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+#ticker-list li {
+  font-weight: bold;
+}
+
+@keyframes ticker {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+/* =========================
+   What We Do
+========================= */
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.what-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.what-card:hover {
+  transform: translateY(-5px);
+}
+
+.what-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.what-card h3 {
+  margin-bottom: 10px;
+}
+
+.long-text {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, margin-bottom 0.4s ease;
+  transition: max-height 0.4s ease;
 }
 
 .what-card.open .long-text {
-  max-height: 500px;
-  margin-bottom: 15px;
+  max-height: 400px;
 }
 
-.what-card .toggle-btn {
+.toggle-btn {
+  margin-top: 12px;
   align-self: flex-start;
-  background: var(--primary);
-  color: #fff;
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
+  background: var(--primary);
+  color: #fff;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
 }
 
-.what-card .toggle-btn:hover {
+.toggle-btn:hover {
   background: var(--secondary);
+}
+
+/* =========================
+   WhatsApp Chat
+========================= */
+#whatsapp-chat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2000;
+}
+
+.chat-toggle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.chat-toggle img {
+  width: 28px;
+  height: 28px;
+}
+
+.chat-box {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 280px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  display: none;
+  flex-direction: column;
+}
+
+.chat-box.active {
+  display: flex;
+}
+
+.chat-header {
+  background: #25d366;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-body {
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.chat-footer {
+  padding: 12px;
+  text-align: right;
+}
+
+.chat-btn {
+  background: #25d366;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.chat-btn:hover {
+  background: #1ebe5a;
 }
