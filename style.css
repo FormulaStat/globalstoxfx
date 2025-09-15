@@ -753,17 +753,18 @@ Services Section
   flex-direction: column;
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.what-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  position: relative;
 }
 
 .what-card img.card-img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  transition: transform 0.6s ease; /* smooth zoom */
+}
+
+.what-card:hover img.card-img {
+  transform: scale(1.08); /* subtle zoom */
 }
 
 .what-card h3 {
