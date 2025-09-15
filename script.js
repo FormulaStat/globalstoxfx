@@ -47,3 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
     chatBox.setAttribute("aria-hidden", "true");
   });
 });
+
+/* =========================
+   Hero Video Control
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const heroVideo = document.querySelector(".hero-video");
+  
+  if (heroVideo) {
+    heroVideo.addEventListener("error", () => {
+      console.warn("Hero video failed to load, fallback to poster.");
+      heroVideo.poster = "/images/hero-poster.jpg";
+    });
+  }
+});
