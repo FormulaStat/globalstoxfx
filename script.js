@@ -61,3 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* =========================
+   AOS Init
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof AOS !== "undefined") {
+    AOS.init({
+      duration: 1200,  // smooth fade speed
+      once: true,      // animation runs once
+      offset: 80       // trigger a bit earlier
+    });
+  }
+});
