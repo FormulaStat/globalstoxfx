@@ -122,3 +122,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   observer.observe(statsSection);
 });
+
+// Crypto Ticker Live Data
+async function loadCryptoTicker() {
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+    );
+    const data = await response.json();
+
+    const tickerList = document.getElementById("ticker-list");
+    tickerList.innerHTML = "";
+
+    data.forEach(coin => {
+      const li = document.createElement("li");
+      li.innerHTML = `${coin.symbol.toUpperCase()} <span>$${coin.current_price.toLocaleString()}</span>`;
+      tickerList.appendChild(li);
+    });
+
+  } catch (error) {
+    console.error("Error loading ticker:", error);
+    document.getElementById("ticker-list").innerHTML =
+      "<li>⚠️ Failed to load live prices</li>";
+  }
+}
+
+// Load ticker on page load
+document.addEventListener("DOMContentLoaded", loadCryptoTicker);
