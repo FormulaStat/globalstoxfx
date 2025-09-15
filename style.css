@@ -493,7 +493,7 @@ body {
 
 /* Stats Section */
 .stats {
-  background: url('/images/stats.jpg') center center/cover no-repeat;
+  background: url('/images/stats.webp') center center/cover no-repeat;
   padding: 80px 20px;
   display: flex;
   flex-wrap: wrap;
