@@ -180,3 +180,90 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPrices();
   setInterval(fetchPrices, 10000);
 });
+
+
+// What We Do: expandable cards (smooth animations, single open at a time, accessible)
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = Array.from(document.querySelectorAll('.what-card'));
+
+  if (!cards.length) return;
+
+  // initialize aria attributes
+  cards.forEach(card => {
+    const longText = card.querySelector('.long-text');
+    const btn = card.querySelector('.toggle-btn');
+    if (!longText || !btn) return;
+    longText.style.display = 'none';
+    longText.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('type', 'button');
+  });
+
+  // helpers
+  function openCard(card) {
+    const longText = card.querySelector('.long-text');
+    const btn = card.querySelector('.toggle-btn');
+    if (!longText || !btn) return;
+
+    // close others
+    cards.forEach(c => { if (c !== card) closeCard(c); });
+
+    // reveal
+    longText.style.display = 'block';              // enable measuring
+    const fullHeight = longText.scrollHeight + 'px';
+    // force reflow for reliable transition
+    longText.style.maxHeight = '0px';
+    window.getComputedStyle(longText).maxHeight;
+    longText.style.opacity = '1';
+    longText.style.maxHeight = fullHeight;
+    card.classList.add('open');
+    longText.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.textContent = 'Read Less';
+  }
+
+  function closeCard(card) {
+    const longText = card.querySelector('.long-text');
+    const btn = card.querySelector('.toggle-btn');
+    if (!longText || !btn) return;
+    // smoothly collapse
+    longText.style.maxHeight = longText.scrollHeight + 'px';
+    window.getComputedStyle(longText).maxHeight;
+    longText.style.opacity = '0';
+    longText.style.maxHeight = '0px';
+    // after transition, hide
+    const handler = (e) => {
+      if (e.propertyName === 'max-height') {
+        longText.style.display = 'none';
+        longText.removeEventListener('transitionend', handler);
+      }
+    };
+    longText.addEventListener('transitionend', handler);
+    card.classList.remove('open');
+    longText.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = 'Read More';
+  }
+
+  // attach handlers
+  cards.forEach(card => {
+    const btn = card.querySelector('.toggle-btn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (card.classList.contains('open')) {
+        closeCard(card);
+      } else {
+        openCard(card);
+      }
+    });
+
+    // accessibility: open with Enter/Space when focused
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    });
+  });
+});
