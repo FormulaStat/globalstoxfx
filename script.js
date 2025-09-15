@@ -186,46 +186,43 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButtons = document.querySelectorAll(".toggle-btn");
 
-  // Toggle function
-  function toggleCard(button) {
-    const card = button.closest(".what-card");
-    const longText = card.querySelector(".long-text");
-    const shortText = card.querySelector(".short");
-    const isOpen = card.classList.contains("open");
-
-    // Close all cards first
-    document.querySelectorAll(".what-card").forEach(c => {
-      c.classList.remove("open");
-      const lt = c.querySelector(".long-text");
-      const st = c.querySelector(".short");
-      lt.style.maxHeight = null;
-      lt.style.marginBottom = "0";
-      st.style.display = "block";
-      c.querySelector(".toggle-btn").textContent = "Read More";
-    });
-
-    // Open clicked card if it wasn't already open
-    if (!isOpen) {
-      card.classList.add("open");
-      shortText.style.display = "none";
-
-      // Expand to natural content height
-      longText.style.maxHeight = longText.scrollHeight + "px";
-      longText.style.marginBottom = "15px";
-
-      button.textContent = "Read Less";
-    }
-  }
-
-  // Attach event listener to each button
   toggleButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-      e.stopPropagation(); // prevent closing immediately on click
-      toggleCard(button);
+      e.stopPropagation(); // prevent outside click from triggering
+
+      const card = button.closest(".what-card");
+      const longText = card.querySelector(".long-text");
+      const shortText = card.querySelector(".short");
+      const isOpen = card.classList.contains("open");
+
+      // Close all cards first
+      document.querySelectorAll(".what-card").forEach(c => {
+        c.classList.remove("open");
+        const lt = c.querySelector(".long-text");
+        const st = c.querySelector(".short");
+        lt.style.maxHeight = null;      // collapse
+        lt.style.marginBottom = "0";    // reset spacing
+        st.style.display = "block";
+        c.querySelector(".toggle-btn").textContent = "Read More";
+      });
+
+      // Open clicked card if it was not open
+      if (!isOpen) {
+        card.classList.add("open");
+        shortText.style.display = "none";
+
+        // Dynamically set maxHeight based on content
+        longText.style.maxHeight = longText.scrollHeight + "px";
+        longText.style.marginBottom = "15px";
+        button.textContent = "Read Less";
+
+        // Optional: smooth scroll to view
+        card.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   });
 
-  // Click outside closes everything
+  // Click outside closes all
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".what-card")) {
       document.querySelectorAll(".what-card.open").forEach(c => {
