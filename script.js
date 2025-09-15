@@ -74,3 +74,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Stats Counter Animation
+function animateCounter(id, target, duration) {
+  const el = document.getElementById(id);
+  let start = 0;
+  const stepTime = Math.abs(Math.floor(duration / target));
+
+  const timer = setInterval(() => {
+    start += 1;
+    el.textContent = start.toLocaleString();
+    if (start >= target) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
+
+// Trigger when section is visible
+document.addEventListener("DOMContentLoaded", () => {
+  const statsSection = document.getElementById("stats");
+  let animated = false;
+
+  window.addEventListener("scroll", () => {
+    const rect = statsSection.getBoundingClientRect();
+    if (!animated && rect.top < window.innerHeight) {
+      animateCounter("users", 12500, 2000);       // example numbers
+      animateCounter("power", 87650, 2500);
+      animateCounter("withdrawals", 1543200, 3000);
+      animated = true;
+    }
+  });
+});
