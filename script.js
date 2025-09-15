@@ -95,40 +95,53 @@ window.addEventListener("DOMContentLoaded", () => {
 // ============================
 // Stats Section Counter Animation (5s, repeat on scroll)
 // ============================
-function animateCounter(id, target, duration = 5000) {
-  const element = document.getElementById(id);
-  if (!element) return;
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = [
+    { id: "users", target: 15230 },
+    { id: "power", target: 4870 },
+    { id: "withdrawals", target: 2340000 },
+  ];
+  const duration = 5000; // 5 seconds for all counters
+  const statsSection = document.querySelector("#stats");
+  const statsHeader = document.querySelector(".stats-header");
+  let hasAnimated = false;
 
-  let start = 0;
-  const increment = target / (duration / 16); // ~60fps
-  element.textContent = "0"; // reset every time
+  function animateCounters() {
+    counters.forEach(counter => {
+      const el = document.getElementById(counter.id);
+      let startTime = null;
 
-  const timer = setInterval(() => {
-    start += increment;
-    if (start >= target) {
-      element.textContent = target.toLocaleString();
-      clearInterval(timer);
-    } else {
-      element.textContent = Math.floor(start).toLocaleString();
-    }
-  }, 16);
-}
-
-const statsSection = document.querySelector("#stats");
-if (statsSection) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Start counters every time section is visible
-          animateCounter("users", 15000, 5000);        // 15,000 users
-          animateCounter("power", 120000, 5000);       // 120,000 TH/s
-          animateCounter("withdrawals", 7500000, 5000); // $7,500,000
+      function updateCounter(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        el.textContent = Math.floor(progress * counter.target).toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
         }
-      });
-    },
-    { threshold: 0.3 }
-  );
+      }
+      requestAnimationFrame(updateCounter);
+    });
+
+    // Animate the title + subtitle
+    statsHeader.classList.add("show");
+  }
+
+  // Observer to trigger animation on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        hasAnimated = true;
+      } else {
+        // Reset when scrolling out so it repeats
+        hasAnimated = false;
+        statsHeader.classList.remove("show");
+        counters.forEach(c => {
+          document.getElementById(c.id).textContent = "0";
+        });
+      }
+    });
+  }, { threshold: 0.5 });
 
   observer.observe(statsSection);
-}
+});
