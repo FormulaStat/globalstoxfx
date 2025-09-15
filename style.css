@@ -597,7 +597,7 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/*----- What we can do ---- */
+/*----- What we do ---- */
 .what-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -614,6 +614,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 .what-card:hover {
@@ -641,12 +642,21 @@ body {
   color: var(--text);
 }
 
+/* FIXED long-text for smooth expand/collapse */
 .what-card .long-text {
-  display: none;
-  margin-bottom: 15px;
+  max-height: 0;
+  overflow: hidden;
+  margin-bottom: 0;
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--text);
+  transition: max-height 0.4s ease, margin-bottom 0.4s ease;
+}
+
+/* Active/open state */
+.what-card.open .long-text {
+  max-height: 500px; /* enough to fit long text */
+  margin-bottom: 15px;
 }
 
 .what-card .toggle-btn {
@@ -688,3 +698,4 @@ body {
   opacity: 1 !important;
   transform: translateX(0) translateY(0) !important;
   animation: zoomPulse 5s ease-in-out infinite;
+}
