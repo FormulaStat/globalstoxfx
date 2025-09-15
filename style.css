@@ -32,7 +32,7 @@ body {
   left: 0;
   width: 100%;
   padding: 16px 32px;
-  background: rgba(10, 15, 44, 0.85);
+  background: rgba(10, 15, 44, 0.85); /* your original base */
   backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
@@ -42,7 +42,7 @@ body {
 }
 
 .navbar.scrolled {
-  background: #0a0f2c; /* Solid when scrolling */
+  background: rgba(10, 15, 44, 0.95); /* keep same tone, just slightly stronger on scroll */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -98,7 +98,7 @@ body {
     position: absolute;
     top: 70px;
     right: 0;
-    background: #0a0f2c;
+    background: rgba(10, 15, 44, 0.95); /* match desktop tone */
     flex-direction: column;
     width: 240px;
     padding: 20px;
