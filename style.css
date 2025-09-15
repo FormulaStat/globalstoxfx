@@ -590,7 +590,7 @@ body {
 
 /* Crypto Ticker */
 .crypto-ticker {
-  background: #0a0f2c;
+  background: #111;
   color: #fff;
   overflow: hidden;
   white-space: nowrap;
@@ -599,39 +599,43 @@ body {
 
 .ticker-wrapper {
   display: flex;
-  animation: ticker 30s linear infinite;
+  width: 200%;
+  animation: ticker-scroll 30s linear infinite;
 }
 
 .ticker-wrapper ul {
   display: flex;
-  gap: 30px;
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
 .ticker-wrapper li {
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  margin-right: 40px;
+  font-size: 14px;
 }
 
-.coin {
+.ticker-wrapper .coin {
   font-weight: bold;
   margin-right: 6px;
 }
 
-.price {
+.ticker-wrapper .price {
   margin-right: 6px;
 }
 
-.change.up {
-  color: #00ff99;
+.ticker-wrapper .change.up {
+  color: #4caf50;
 }
 
-.change.down {
-  color: #ff3b3b;
+.ticker-wrapper .change.down {
+  color: #f44336;
 }
 
-@keyframes ticker {
+/* Scroll Animation */
+@keyframes ticker-scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
