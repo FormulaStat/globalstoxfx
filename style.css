@@ -644,6 +644,73 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+/* =========================
+Services Section
+========================= */
+#services {
+  background: #fff; /* clean white background */
+  padding: 100px 20px;
+  text-align: center;
+  color: var(--dark);
+  position: relative;
+  z-index: 1;
+}
+
+#services h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+#services h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  margin: 12px auto 0 auto;
+  border-radius: 2px;
+}
+
+#services .services-intro {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #444;
+  font-weight: 400;
+}
+
+/* Subtle fade-in animation */
+#services[data-aos="fade-up"] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#services[data-aos="fade-up"].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #services {
+    padding: 70px 16px;
+  }
+
+  #services h2 {
+    font-size: 2rem;
+  }
+
+  #services .services-intro {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
+
 /*----- What we do ---- */
 .what-grid {
   display: grid;
