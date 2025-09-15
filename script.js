@@ -76,19 +76,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Stats Counter Animation
-function animateCounter(id, target, duration) {
+function animateCounter(id, target, duration = 5000) {
   const el = document.getElementById(id);
   let start = 0;
-  const stepTime = Math.max(Math.floor(duration / target), 20); // smooth animation
+  const steps = Math.ceil(duration / 30); // smooth steps
+  const increment = target / steps;
 
   el.textContent = "0"; // reset before animating
+
+  let count = 0;
   const timer = setInterval(() => {
-    start++;
-    el.textContent = start.toLocaleString();
-    if (start >= target) {
+    start += increment;
+    count++;
+    if (count >= steps) {
+      el.textContent = target.toLocaleString();
       clearInterval(timer);
+    } else {
+      el.textContent = Math.floor(start).toLocaleString();
     }
-  }, stepTime);
+  }, 30);
 }
 
 // Observer to restart counters each time section enters view
@@ -99,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          animateCounter("users", 12500, 5000);        // completes in ~5s
+          animateCounter("users", 12500, 5000);
           animateCounter("power", 87650, 5000);
           animateCounter("withdrawals", 1543200, 5000);
         }
