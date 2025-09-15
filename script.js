@@ -198,3 +198,25 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchCrypto();
   setInterval(fetchCrypto, 20000); // update every 20 seconds 
 });
+
+// =========================
+// What We Do Section Toggle
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButtons = document.querySelectorAll(".toggle-btn");
+
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".what-card");
+      const longText = card.querySelector(".long-text");
+
+      if (longText.style.display === "block") {
+        longText.style.display = "none";
+        btn.textContent = "Read More";
+      } else {
+        longText.style.display = "block";
+        btn.textContent = "Read Less";
+      }
+    });
+  });
+});
