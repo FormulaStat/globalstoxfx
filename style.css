@@ -438,14 +438,17 @@ body {
   font-size: 1rem;
 }
 
+/* Make tagline full width on desktop */
 .about-tagline {
   font-size: 1.15rem;
-  margin-top: 20px;
+  margin-top: 30px;
   color: #f8fafc;
   font-style: italic;
   border-left: 4px solid #2563eb;
   padding-left: 15px;
   line-height: 1.6;
+  width: 100%;
+  flex-basis: 100%; /* forces it to span full width */
 }
 
 /* Responsive (Mobile) */
