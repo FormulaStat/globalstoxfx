@@ -151,48 +151,49 @@ document.addEventListener("DOMContentLoaded", () => {
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
   const tickerList = document.getElementById("ticker-list");
-  const apiKey = "5cca0528-f4b7-4ea6-aebf-c8c6f441406d"; // your key
-  const url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10";
+  const tickerWrapper = document.querySelector(".ticker-wrapper");
 
-  // Fetch crypto data
+  const url =
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=15";
+
   async function fetchCrypto() {
     try {
-      const response = await fetch(url, {
-        headers: { "X-CMC_PRO_API_KEY": apiKey },
-      });
+      const response = await fetch(url);
       const data = await response.json();
 
-      // Clear existing list
+      // Clear old
       tickerList.innerHTML = "";
 
-      // Add top 10 cryptos
-      data.data.forEach(coin => {
+      // Populate
+      data.forEach((coin) => {
         const li = document.createElement("li");
-        const price = coin.quote.USD.price.toFixed(2);
-        const change = coin.quote.USD.percent_change_24h.toFixed(2);
+        const price = coin.current_price.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+        });
+        const change = coin.price_change_percentage_24h?.toFixed(2) || 0;
         const changeClass = change >= 0 ? "up" : "down";
 
         li.innerHTML = `
-          <span class="coin">${coin.symbol}</span> 
-          <span class="price">$${price}</span> 
+          <span class="coin">${coin.symbol.toUpperCase()}</span>
+          <span class="price">${price}</span>
           <span class="change ${changeClass}">${change}%</span>
         `;
         tickerList.appendChild(li);
       });
 
-      // Duplicate list for smooth infinite scroll
+      // Clone for infinite scroll
       const clone = tickerList.cloneNode(true);
-      tickerList.parentElement.appendChild(clone);
-
-    } catch (error) {
-      console.error("Error fetching crypto data:", error);
+      tickerWrapper.innerHTML = "";
+      tickerWrapper.appendChild(tickerList);
+      tickerWrapper.appendChild(clone);
+    } catch (err) {
+      console.error("Error:", err);
       tickerList.innerHTML = "<li>Unable to load live prices...</li>";
     }
   }
 
-  // Initial fetch
   fetchCrypto();
-
-  // Update every 60 seconds
-  setInterval(fetchCrypto, 60000);
+  setInterval(fetchCrypto, 20000); // update every 20 seconds 
 });
