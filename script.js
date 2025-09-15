@@ -91,3 +91,44 @@ window.addEventListener("DOMContentLoaded", () => {
     observer.observe(aboutSection);
   }
 });
+
+// ============================
+// Stats Section Counter Animation (5s, repeat on scroll)
+// ============================
+function animateCounter(id, target, duration = 5000) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  let start = 0;
+  const increment = target / (duration / 16); // ~60fps
+  element.textContent = "0"; // reset every time
+
+  const timer = setInterval(() => {
+    start += increment;
+    if (start >= target) {
+      element.textContent = target.toLocaleString();
+      clearInterval(timer);
+    } else {
+      element.textContent = Math.floor(start).toLocaleString();
+    }
+  }, 16);
+}
+
+const statsSection = document.querySelector("#stats");
+if (statsSection) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Start counters every time section is visible
+          animateCounter("users", 15000, 5000);        // 15,000 users
+          animateCounter("power", 120000, 5000);       // 120,000 TH/s
+          animateCounter("withdrawals", 7500000, 5000); // $7,500,000
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  observer.observe(statsSection);
+}
