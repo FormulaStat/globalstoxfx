@@ -196,16 +196,22 @@ document.addEventListener("DOMContentLoaded", () => {
       // Close all cards first
       document.querySelectorAll(".what-card").forEach(c => {
         c.classList.remove("open");
-        c.querySelector(".long-text").style.maxHeight = null;
-        c.querySelector(".short").style.display = "block";
+        const lt = c.querySelector(".long-text");
+        const st = c.querySelector(".short");
+        lt.style.maxHeight = null;
+        st.style.display = "block";
         c.querySelector(".toggle-btn").textContent = "Read More";
       });
 
-      // If the clicked one wasn't open, open it
+      // Open the clicked one if it wasn't already open
       if (!isOpen) {
         card.classList.add("open");
         shortText.style.display = "none";
+
+        // Dynamically set maxHeight for smooth slide
         longText.style.maxHeight = longText.scrollHeight + "px";
+        longText.style.marginBottom = "15px";
+
         button.textContent = "Read Less";
       }
     });
