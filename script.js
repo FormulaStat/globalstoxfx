@@ -186,34 +186,57 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", () => {
   const toggleButtons = document.querySelectorAll(".toggle-btn");
 
-  toggleButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const card = button.closest(".what-card");
-      const longText = card.querySelector(".long-text");
-      const shortText = card.querySelector(".short");
-      const isOpen = card.classList.contains("open");
+  // Toggle function
+  function toggleCard(button) {
+    const card = button.closest(".what-card");
+    const longText = card.querySelector(".long-text");
+    const shortText = card.querySelector(".short");
+    const isOpen = card.classList.contains("open");
 
-      // Close all cards first
-      document.querySelectorAll(".what-card").forEach(c => {
+    // Close all cards first
+    document.querySelectorAll(".what-card").forEach(c => {
+      c.classList.remove("open");
+      const lt = c.querySelector(".long-text");
+      const st = c.querySelector(".short");
+      lt.style.maxHeight = null;
+      lt.style.marginBottom = "0";
+      st.style.display = "block";
+      c.querySelector(".toggle-btn").textContent = "Read More";
+    });
+
+    // Open clicked card if it wasn't already open
+    if (!isOpen) {
+      card.classList.add("open");
+      shortText.style.display = "none";
+
+      // Expand to natural content height
+      longText.style.maxHeight = longText.scrollHeight + "px";
+      longText.style.marginBottom = "15px";
+
+      button.textContent = "Read Less";
+    }
+  }
+
+  // Attach event listener to each button
+  toggleButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent closing immediately on click
+      toggleCard(button);
+    });
+  });
+
+  // Click outside closes everything
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".what-card")) {
+      document.querySelectorAll(".what-card.open").forEach(c => {
         c.classList.remove("open");
         const lt = c.querySelector(".long-text");
         const st = c.querySelector(".short");
         lt.style.maxHeight = null;
+        lt.style.marginBottom = "0";
         st.style.display = "block";
         c.querySelector(".toggle-btn").textContent = "Read More";
       });
-
-      // Open the clicked one if it wasn't already open
-      if (!isOpen) {
-        card.classList.add("open");
-        shortText.style.display = "none";
-
-        // Dynamically set maxHeight for smooth slide
-        longText.style.maxHeight = longText.scrollHeight + "px";
-        longText.style.marginBottom = "15px";
-
-        button.textContent = "Read Less";
-      }
-    });
+    }
   });
 });
