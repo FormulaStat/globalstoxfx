@@ -79,15 +79,21 @@ document.addEventListener("DOMContentLoaded", () => {
 function animateCounter(id, target, duration = 5000) {
   const el = document.getElementById(id);
   let start = 0;
-  const steps = Math.ceil(duration / 30); // smooth steps
+  const steps = Math.ceil(duration / 30);
   const increment = target / steps;
 
-  el.textContent = "0"; // reset before animating
+  el.textContent = "0";
+  el.style.transition = "transform 0.3s ease";
 
   let count = 0;
   const timer = setInterval(() => {
     start += increment;
     count++;
+    el.style.transform = "rotateX(20deg)"; // flip effect
+    setTimeout(() => {
+      el.style.transform = "rotateX(0deg)";
+    }, 150);
+
     if (count >= steps) {
       el.textContent = target.toLocaleString();
       clearInterval(timer);
@@ -97,7 +103,7 @@ function animateCounter(id, target, duration = 5000) {
   }, 30);
 }
 
-// Observer to restart counters each time section enters view
+// Observer: restart counters on scroll
 document.addEventListener("DOMContentLoaded", () => {
   const statsSection = document.getElementById("stats");
 
