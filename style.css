@@ -567,14 +567,15 @@ body {
 .crypto-ticker {
   background: #000;
   color: #fff;
-  padding: 10px 0;
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
+  padding: 10px 0;
 }
 
 .ticker-wrapper {
   display: flex;
-  animation: ticker 30s linear infinite;
+  width: max-content;
 }
 
 #ticker-list {
@@ -590,8 +591,8 @@ body {
   transition: color 0.5s ease;
 }
 
-/* Continuous scrolling */
-@keyframes ticker {
+/* Smooth scroll animation */
+@keyframes ticker-scroll {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
