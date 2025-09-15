@@ -590,34 +590,48 @@ body {
 
 /* Crypto Ticker */
 .crypto-ticker {
-  background: #000;
+  background: #0a0f2c;
   color: #fff;
   overflow: hidden;
   white-space: nowrap;
-  width: 100%;
   padding: 10px 0;
 }
 
 .ticker-wrapper {
   display: flex;
-  width: max-content;
+  animation: ticker 30s linear infinite;
 }
 
-#ticker-list {
+.ticker-wrapper ul {
   display: flex;
-  list-style: none;
-  padding: 0;
+  gap: 30px;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-#ticker-list li {
-  margin-right: 50px;
+.ticker-wrapper li {
+  font-size: 0.95rem;
+}
+
+.coin {
   font-weight: bold;
-  transition: color 0.5s ease;
+  margin-right: 6px;
 }
 
-/* Smooth scroll animation */
-@keyframes ticker-scroll {
+.price {
+  margin-right: 6px;
+}
+
+.change.up {
+  color: #00ff99;
+}
+
+.change.down {
+  color: #ff3b3b;
+}
+
+@keyframes ticker {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
