@@ -69,3 +69,25 @@ if (typeof AOS !== "undefined") {
     once: true,
   });
 }
+
+// ============================
+// About Section Animations
+// ============================
+window.addEventListener("DOMContentLoaded", () => {
+  const aboutSection = document.querySelector("#about");
+  const tagline = document.querySelector(".about-tagline");
+
+  if (aboutSection && tagline) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            tagline.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(aboutSection);
+  }
+});
