@@ -79,10 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function animateCounter(id, target, duration) {
   const el = document.getElementById(id);
   let start = 0;
-  const stepTime = Math.abs(Math.floor(duration / target));
+  const stepTime = Math.max(Math.floor(duration / target), 20); // smooth animation
 
+  el.textContent = "0"; // reset before animating
   const timer = setInterval(() => {
-    start += 1;
+    start++;
     el.textContent = start.toLocaleString();
     if (start >= target) {
       clearInterval(timer);
@@ -90,18 +91,22 @@ function animateCounter(id, target, duration) {
   }, stepTime);
 }
 
-// Trigger when section is visible
+// Observer to restart counters each time section enters view
 document.addEventListener("DOMContentLoaded", () => {
   const statsSection = document.getElementById("stats");
-  let animated = false;
 
-  window.addEventListener("scroll", () => {
-    const rect = statsSection.getBoundingClientRect();
-    if (!animated && rect.top < window.innerHeight) {
-      animateCounter("users", 12500, 2000);       // example numbers
-      animateCounter("power", 87650, 2500);
-      animateCounter("withdrawals", 1543200, 3000);
-      animated = true;
-    }
-  });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounter("users", 12500, 5000);        // completes in ~5s
+          animateCounter("power", 87650, 5000);
+          animateCounter("withdrawals", 1543200, 5000);
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+
+  observer.observe(statsSection);
 });
