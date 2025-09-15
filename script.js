@@ -124,28 +124,56 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Crypto Ticker Live Data
-async function loadCryptoTicker() {
+const tickerList = document.getElementById('ticker-list');
+const apiKey = '5cca0528-f4b7-4ea6-aebf-c8c6f441406d';
+let lastPrices = {}; // store previous prices to detect changes
+
+async function fetchPrices() {
   try {
-    const response = await fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
-    );
+    const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&convert=USD', {
+      headers: {
+        'X-CMC_PRO_API_KEY': apiKey,
+        'Accept': 'application/json'
+      }
+    });
     const data = await response.json();
 
-    const tickerList = document.getElementById("ticker-list");
-    tickerList.innerHTML = "";
+    tickerList.innerHTML = '';
 
-    data.forEach(coin => {
-      const li = document.createElement("li");
-      li.innerHTML = `${coin.symbol.toUpperCase()} <span>$${coin.current_price.toLocaleString()}</span>`;
+    data.data.forEach(coin => {
+      const li = document.createElement('li');
+      const price = coin.quote.USD.price.toFixed(2);
+
+      // Determine price change color
+      if (lastPrices[coin.symbol]) {
+        if (price > lastPrices[coin.symbol]) {
+          li.style.color = 'limegreen';
+        } else if (price < lastPrices[coin.symbol]) {
+          li.style.color = 'red';
+        } else {
+          li.style.color = '#fff';
+        }
+      }
+
+      li.textContent = `${coin.symbol}: $${price}`;
       tickerList.appendChild(li);
+
+      // Update lastPrices
+      lastPrices[coin.symbol] = price;
     });
 
+    // Duplicate the list for continuous scrolling effect
+    const clone = tickerList.cloneNode(true);
+    tickerList.parentNode.appendChild(clone);
+
   } catch (error) {
-    console.error("Error loading ticker:", error);
-    document.getElementById("ticker-list").innerHTML =
-      "<li>⚠️ Failed to load live prices</li>";
+    console.error('Error fetching prices:', error);
+    tickerList.innerHTML = '<li>Failed to load prices.</li>';
   }
 }
 
-// Load ticker on page load
-document.addEventListener("DOMContentLoaded", loadCryptoTicker);
+// Initial fetch
+fetchPrices();
+
+// Update every 10 seconds
+setInterval(fetchPrices, 10000);
