@@ -444,12 +444,31 @@ body {
   margin: 40px auto 0 auto;
   color: #f8fafc;
   font-style: italic;
-  border-left: none;         /* remove side border */
-  padding-left: 0;
   line-height: 1.7;
   width: 100%;
-  text-align: center;        /* center the text */
+  text-align: center;
   font-weight: 500;
+}
+
+.about-tagline em {
+  display: inline-block;
+  margin-top: 10px;
+  font-style: normal; /* remove italic from em for clarity */
+  font-weight: 700;
+  background-image: linear-gradient(to right, #2563eb, #1e40af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.about-tagline em::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #2563eb, #1e40af);
+  margin: 6px auto 0 auto;
+  border-radius: 2px;
 }
 
 /* Responsive (Mobile) */
