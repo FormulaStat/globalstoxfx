@@ -565,46 +565,33 @@ body {
 
 /* Crypto Ticker */
 .crypto-ticker {
-  background: #0a0f2c;
-  padding: 12px 0;
+  background: #000;
+  color: #fff;
+  padding: 10px 0;
   overflow: hidden;
   white-space: nowrap;
-  border-top: 2px solid var(--primary);
-  border-bottom: 2px solid var(--primary);
 }
 
 .ticker-wrapper {
   display: flex;
-  align-items: center;
-  animation: tickerMove 40s linear infinite;
+  animation: ticker 30s linear infinite;
 }
 
 #ticker-list {
   display: flex;
-  gap: 40px;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 #ticker-list li {
-  font-size: 0.95rem;
-  color: #fff;
-  font-weight: 600;
-  text-transform: uppercase;
+  margin-right: 50px;
+  font-weight: bold;
+  transition: color 0.5s ease;
 }
 
-#ticker-list li span {
-  margin-left: 6px;
-  font-weight: 400;
-  color: #4ea1ff;
-}
-
-@keyframes tickerMove {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+/* Continuous scrolling */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
