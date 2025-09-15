@@ -202,21 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 // What We Do Section Toggle
 // =========================
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleButtons = document.querySelectorAll(".toggle-btn");
+document.querySelectorAll(".toggle-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const longText = btn.previousElementSibling;
+    longText.classList.toggle("open");
 
-  toggleButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const card = btn.closest(".what-card");
-      const longText = card.querySelector(".long-text");
-
-      if (longText.style.display === "block") {
-        longText.style.display = "none";
-        btn.textContent = "Read More";
-      } else {
-        longText.style.display = "block";
-        btn.textContent = "Read Less";
-      }
-    });
+    if (longText.classList.contains("open")) {
+      btn.textContent = "Read Less";
+    } else {
+      btn.textContent = "Read More";
+    }
   });
 });
