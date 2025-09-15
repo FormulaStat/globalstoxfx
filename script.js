@@ -124,56 +124,59 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Crypto Ticker Live Data
-const tickerList = document.getElementById('ticker-list');
-const apiKey = '5cca0528-f4b7-4ea6-aebf-c8c6f441406d';
-let lastPrices = {}; // store previous prices to detect changes
+document.addEventListener('DOMContentLoaded', () => {
+  const tickerList = document.getElementById('ticker-list');
+  const wrapper = document.getElementById('ticker-wrapper');
+  const apiKey = '5cca0528-f4b7-4ea6-aebf-c8c6f441406d';
+  let lastPrices = {};
 
-async function fetchPrices() {
-  try {
-    const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&convert=USD', {
-      headers: {
-        'X-CMC_PRO_API_KEY': apiKey,
-        'Accept': 'application/json'
-      }
-    });
-    const data = await response.json();
-
-    tickerList.innerHTML = '';
-
-    data.data.forEach(coin => {
-      const li = document.createElement('li');
-      const price = coin.quote.USD.price.toFixed(2);
-
-      // Determine price change color
-      if (lastPrices[coin.symbol]) {
-        if (price > lastPrices[coin.symbol]) {
-          li.style.color = 'limegreen';
-        } else if (price < lastPrices[coin.symbol]) {
-          li.style.color = 'red';
-        } else {
-          li.style.color = '#fff';
+  async function fetchPrices() {
+    try {
+      const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&convert=USD', {
+        headers: {
+          'X-CMC_PRO_API_KEY': apiKey,
+          'Accept': 'application/json'
         }
+      });
+      const data = await response.json();
+
+      tickerList.innerHTML = '';
+
+      data.data.forEach(coin => {
+        const li = document.createElement('li');
+        const price = coin.quote.USD.price.toFixed(2);
+
+        if (lastPrices[coin.symbol]) {
+          if (price > lastPrices[coin.symbol]) li.style.color = 'limegreen';
+          else if (price < lastPrices[coin.symbol]) li.style.color = 'red';
+          else li.style.color = '#fff';
+        }
+
+        li.textContent = `${coin.symbol}: $${price}`;
+        tickerList.appendChild(li);
+
+        lastPrices[coin.symbol] = price;
+      });
+
+      // Duplicate for continuous scrolling
+      if (!document.querySelector('#ticker-list-clone')) {
+        const clone = tickerList.cloneNode(true);
+        clone.id = 'ticker-list-clone';
+        wrapper.appendChild(clone);
       }
 
-      li.textContent = `${coin.symbol}: $${price}`;
-      tickerList.appendChild(li);
+      startScroll();
 
-      // Update lastPrices
-      lastPrices[coin.symbol] = price;
-    });
-
-    // Duplicate the list for continuous scrolling effect
-    const clone = tickerList.cloneNode(true);
-    tickerList.parentNode.appendChild(clone);
-
-  } catch (error) {
-    console.error('Error fetching prices:', error);
-    tickerList.innerHTML = '<li>Failed to load prices.</li>';
+    } catch (err) {
+      console.error(err);
+      tickerList.innerHTML = '<li>Failed to load prices.</li>';
+    }
   }
-}
 
-// Initial fetch
-fetchPrices();
+  function startScroll() {
+    wrapper.style.animation = 'ticker-scroll 30s linear infinite';
+  }
 
-// Update every 10 seconds
-setInterval(fetchPrices, 10000);
+  fetchPrices();
+  setInterval(fetchPrices, 10000);
+});
