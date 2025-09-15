@@ -493,7 +493,7 @@ body {
 
 /* Stats Section */
 .stats {
-  background: url('/images/stats.webp') center center/cover no-repeat;
+  background: url('/images/stats.webp') center center/cover no-repeat fixed;
   padding: 80px 20px;
   display: flex;
   flex-wrap: wrap;
@@ -502,6 +502,8 @@ body {
   gap: 40px;
   text-align: center;
   color: #000;
+  position: relative;
+  z-index: 1;
 }
 
 .stats .stat {
@@ -516,9 +518,7 @@ body {
   font-size: 3rem;
   font-weight: 900;
   margin-bottom: 8px;
-  color: #111;
   letter-spacing: 1px;
-  /* glowing gradient effect */
   background: linear-gradient(90deg, #0f172a, #2563eb, #1e40af);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -547,14 +547,15 @@ body {
 @media (max-width: 768px) {
   .stats {
     gap: 20px;
+    background-attachment: scroll; /* prevent jitter on mobile */
   }
 
   .stats .stat {
-    flex: 1 1 45%; /* Users + Power share line */
+    flex: 1 1 45%;
   }
 
   .stats .stat.full {
-    flex-basis: 100%; /* Withdrawals on next row */
+    flex-basis: 100%;
   }
 
   .stats h3.counter {
