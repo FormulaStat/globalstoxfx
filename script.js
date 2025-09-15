@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const changeClass = change >= 0 ? "up" : "down";
 
         li.innerHTML = `
+          <img src="${coin.image}" alt="${coin.name}" width="18" height="18" style="border-radius:50%; margin-right:6px;">
           <span class="coin">${coin.symbol.toUpperCase()}</span>
           <span class="price">${price}</span>
           <span class="change ${changeClass}">${change}%</span>
