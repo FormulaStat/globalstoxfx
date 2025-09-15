@@ -115,3 +115,129 @@ body {
     display: block;
   }
 }
+
+/* =========================
+   Floating WhatsApp Chat
+========================= */
+#whatsapp-chat {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  font-family: inherit;
+}
+
+/* Toggle button */
+#whatsapp-chat .chat-toggle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+#whatsapp-chat .chat-toggle:hover {
+  transform: scale(1.05);
+}
+
+#whatsapp-chat .chat-toggle img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Chat box */
+#whatsapp-chat .chat-box {
+  width: 300px;
+  max-width: 90vw;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+}
+
+#whatsapp-chat .chat-box[aria-hidden="false"] {
+  display: flex;
+  animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+#whatsapp-chat .chat-header {
+  background: #25d366;
+  color: #fff;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#whatsapp-chat .chat-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#whatsapp-chat .chat-header p {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+#whatsapp-chat .chat-header button {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Body */
+#whatsapp-chat .chat-body {
+  padding: 14px;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* Footer */
+#whatsapp-chat .chat-footer {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+#whatsapp-chat .chat-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+#whatsapp-chat .chat-btn:hover {
+  background: #1ebe5a;
+}
