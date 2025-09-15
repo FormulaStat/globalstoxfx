@@ -73,3 +73,27 @@ document.querySelectorAll(".hero-actions a").forEach((btn) => {
     }
   });
 });                              
+
+// ============================
+// About Section Script
+// ============================
+
+// AOS (Animate On Scroll) initialization
+if (typeof AOS !== "undefined") {
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 120,
+  });
+}
+
+// Optional: Scroll reveal for About section elements
+const aboutSection = document.getElementById("about");
+if (aboutSection) {
+  window.addEventListener("scroll", () => {
+    const rect = aboutSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      aboutSection.classList.add("show");
+    }
+  });
+}
