@@ -278,13 +278,17 @@ body {
   z-index: -1; /* between video and text */
 }
 
-/* Content (force on top) */
 .hero-content {
   position: relative;
-  z-index: 1; /* ✅ ensures text sits above overlay */
+  z-index: 1;
   max-width: 900px;
   text-align: center;
   padding: 0 20px;
+  opacity: 0; /* ensures fade-in starts hidden */
+}
+
+[data-aos="fade-up"] {
+  opacity: 1 !important; /* AOS will handle visibility */
 }
 
 .hero-content h1 {
