@@ -711,102 +711,115 @@ Services Section
   }
 }
 
-/*----- What we do ---- */
+/* =========================
+   What We Do Section
+========================= */
+#what {
+  background: #f9fafb;
+  padding: 100px 20px;
+  text-align: center;
+  color: var(--dark);
+}
+
+#what h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+#what h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  margin: 12px auto 0 auto;
+  border-radius: 2px;
+}
+
+/* Grid Layout */
 .what-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
   margin-top: 40px;
 }
 
+/* Cards */
 .what-card {
-  background: var(--white);
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   text-align: left;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden;
 }
 
 .what-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 .what-card img.card-img {
   width: 100%;
-  height: 180px;
+  height: 220px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 16px;
 }
 
 .what-card h3 {
   font-size: 1.3rem;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin: 16px 20px 8px;
   color: var(--dark);
 }
 
 .what-card p.short {
+  margin: 0 20px 12px;
   font-size: 1rem;
-  margin-bottom: 15px;
-  color: var(--text);
+  color: #555;
 }
 
-/* FIXED long-text for smooth expand/collapse */
 .what-card .long-text {
-  max-height: 0;       /* start collapsed */
-  overflow: hidden;    /* hide content */
-  margin-bottom: 0;    /* collapsed spacing */
-  transition: max-height 0.4s ease, margin-bottom 0.4s ease;
+  margin: 0 20px 16px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #444;
+  display: none; /* Hidden by default */
 }
 
-/* Active/open state */
-.what-card.open .long-text {
-  max-height: 500px; /* enough to fit long text */
-  margin-bottom: 15px;
-}
-
-.what-card .toggle-btn {
-  align-self: flex-start;
-  background: var(--primary);
-  color: var(--white);
-  padding: 8px 16px;
+/* Toggle Button */
+.toggle-btn {
+  margin: auto 20px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: #fff;
+  font-weight: 600;
   font-size: 0.9rem;
-  transition: background 0.3s;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.3s ease;
 }
 
-.what-card .toggle-btn:hover {
-  background: var(--secondary);
+.toggle-btn:hover {
+  background: linear-gradient(to right, var(--secondary), var(--primary));
 }
 
-/* Desktop spacing - make cards breathe */
-@media (min-width: 1024px) {
-  .what-grid {
-    gap: 50px;
+/* Responsive */
+@media (max-width: 768px) {
+  #what {
+    padding: 70px 16px;
   }
 
-  .what-card {
-    padding: 28px;
+  #what h2 {
+    font-size: 2rem;
   }
-}
 
-/* Zoom animation */
-@keyframes zoomPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-/* When card is shown */
-.show {
-  opacity: 1 !important;
-  transform: translateX(0) translateY(0) !important;
-  animation: zoomPulse 5s ease-in-out infinite;
+  .what-card img.card-img {
+    height: 180px;
+  }
 }
