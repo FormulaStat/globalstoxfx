@@ -600,7 +600,11 @@ body {
 .ticker-wrapper {
   display: flex;
   width: 200%;
-  animation: ticker-scroll 30s linear infinite;
+  animation: ticker-scroll 25s linear infinite;
+}
+
+.ticker-wrapper li img {
+  vertical-align: middle;
 }
 
 .ticker-wrapper ul {
