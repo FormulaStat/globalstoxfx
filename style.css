@@ -644,12 +644,9 @@ body {
 
 /* FIXED long-text for smooth expand/collapse */
 .what-card .long-text {
-  max-height: 0;
-  overflow: hidden;
-  margin-bottom: 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--text);
+  max-height: 0;       /* start collapsed */
+  overflow: hidden;    /* hide content */
+  margin-bottom: 0;    /* collapsed spacing */
   transition: max-height 0.4s ease, margin-bottom 0.4s ease;
 }
 
