@@ -44,3 +44,32 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+
+// ============================
+// Hero Section Script
+// ============================
+
+// Ensure hero video fallback works
+const heroVideo = document.querySelector(".hero-video");
+
+if (heroVideo) {
+  heroVideo.addEventListener("error", () => {
+    console.warn("Hero video failed to load, showing poster instead.");
+    heroVideo.style.display = "none";
+  });
+}
+
+// Smooth scroll for hero buttons
+document.querySelectorAll(".hero-actions a").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = btn.getAttribute("href").substring(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 70, // adjust for navbar height
+        behavior: "smooth",
+      });
+    }
+  });
+});                              
