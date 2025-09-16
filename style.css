@@ -714,10 +714,30 @@ Services Section
 /* =========================
    What We Do Section
 ========================= */
+/* What We Do Section with Parallax Background */
 #what {
-  background: #f9fafb;
-  padding: 100px 50px;
-  text-align: center;
+  position: relative;
+  padding: 100px 20px;
+  background: url("images/we-do.jpg") no-repeat center center / cover;
+  background-attachment: fixed; /* parallax effect */
+  color: #fff; /* ensures text is readable */
+  z-index: 1;
+}
+
+/* Dark overlay for readability */
+#what::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55); /* darken background */
+  z-index: -1;
+}
+
+/* Keep content above overlay */
+#what h2,
+#what .what-grid {
+  position: relative;
+  z-index: 2;
 }
 
 #what h2 {
